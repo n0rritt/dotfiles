@@ -1,23 +1,55 @@
 color=#f3f4f5
 separator_block_width=15
-markup=none
+markup=pango
 
-[volume-pulseaudio]
-command=~/.local/src/i3blocks-contrib/volume-pulseaudio/volume-pulseaudio
-interval=1
-signal=10
-LONG_FORMAT="${SYMB}${VOL}%"
-SHORT_FORMAT="${SYMB}${VOL}%"
-DEFAULT_COLOR="#f3f4f5"
-USE_ALSA_NAME=1
+[bandwidth]
+command=$SCRIPT_DIR/bandwidth/bandwidth -i " " -o "   "
+interval=5
+
+[extenal-ip]
+command=echo -n " "; curl "ifconfig.me/ip"
+interval=60
+
+[iface]
+command=echo -n " "; $SCRIPT_DIR/iface/iface
+#LABEL=wlan0:
+#IFACE=wlan0
+#ADDRESS_FAMILY=inet6?
+#color=#00FF00
+interval=60
+
+[cpu_usage]
+command=echo -n "  "; $SCRIPT_DIR/cpu_usage/cpu_usage
+interval=10
+DECIMALS=1
 
 [ram]
-command=echo -n "  "; ~/.local/src/i3blocks-contrib/memory/memory | grep -E -o '[0-9]+.[0-9]?G'
+command=echo -n "  "; $SCRIPT_DIR/memory/memory | grep -E -o '[0-9]+.[0-9]?G'
 interval=30
 
 [disk-home]
 command=echo -n "  "; df -h -P -l "$HOME" | awk '/\/.*/ { print $3; exit 0 }'
 interval=30
+
+[battery]
+command=$SCRIPT_DIR/battery2/battery2
+markup=pango
+interval=30
+
+[volume-pulseaudio]
+command=$SCRIPT_DIR/volume-pulseaudio/volume-pulseaudio
+interval=1
+signal=10
+LONG_FORMAT="${SYMB}${VOL}%"
+SHORT_FORMAT="${SYMB}${VOL}%"
+#AUDIO_HIGH_SYMBOL='  '
+#AUDIO_MED_THRESH=50
+#AUDIO_MED_SYMBOL='  '
+#AUDIO_LOW_THRESH=0
+#AUDIO_LOW_SYMBOL='  '
+#AUDIO_DELTA=5
+DEFAULT_COLOR="#f3f4f5"
+USE_ALSA_NAME=1
 
 [time]
 command=echo -n "  "; date '+%a, %d %b %H:%M'

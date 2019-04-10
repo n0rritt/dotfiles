@@ -1,5 +1,5 @@
 # Themes.
-ZSH_THEME="oxide"
+ZSH_THEME="spaceship"
 
 # Case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -18,12 +18,20 @@ HIST_STAMPS="yyyy-mm-dd"
 
 # Plugins.
 plugins=(
-    archive
-    extract
+    #archive
+    #extract
     git
+    aws
+    per-directory-history
+    pip
+    vi-mode
+    zsh-autoswitch-conda
+    fzf
 )
 
 # Environment variables.
+source ~/.zshenv
+
 source ~/.exports
 
 # Oh My Zsh.
@@ -34,14 +42,12 @@ source ~/.zsh/setopt.zsh
 
 # Aliases.
 source ~/.aliases
-source ~/.aliases_private
 
 # Functions.
 source ~/.functions
-source ~/.functions_private
 
 # Tracks your most used directories, based on frecency with z.
-source ~/.zsh/plugins/z/z.sh
+#source ~/.zsh/plugins/z/z.sh
 
 # dircolors.
 if [ -x "$(command -v dircolors)" ]; then
@@ -55,10 +61,12 @@ fi
 
 # Manage SSH with Keychain.
 if [ -x "$(command -v keychain)" ]; then
-    eval "$(keychain --eval --quiet id_rsa_github id_rsa_gitlab)"
+    eval "$(keychain --eval --quiet id_rsa)"
 fi
 
 # Base16 Shell.
 if [ -f ~/.local/bin/base16-oxide ]; then
     source ~/.local/bin/base16-oxide
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
