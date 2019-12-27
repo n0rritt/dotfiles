@@ -86,3 +86,6 @@ alias artisan='php artisan'
 alias :q='exit'
 alias help='man'
 alias quit='exit'
+
+# Java
+alias jar='java -jar'

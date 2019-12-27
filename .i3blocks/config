@@ -7,7 +7,7 @@ command=$SCRIPT_DIR/bandwidth/bandwidth -i " " -o "   "
 interval=5
 
 [extenal-ip]
-command=echo -n " "; curl "ifconfig.me/ip"
+command=echo "  $(curl ifconfig.me/ip)"
 interval=60
 
 [iface]
@@ -18,6 +18,14 @@ command=echo -n " "; $SCRIPT_DIR/iface/iface
 #color=#00FF00
 interval=60
 
+[temperature]
+command=echo -n " "; $SCRIPT_DIR/temperature/temperature
+#label=TEMP
+interval=10
+T_WARN=70
+T_CRIT=90
+#SENSOR_CHIP=""
+
 [cpu_usage]
 command=echo -n "  "; $SCRIPT_DIR/cpu_usage/cpu_usage
 interval=10
@@ -27,8 +35,12 @@ DECIMALS=1
 command=echo -n "  "; $SCRIPT_DIR/memory/memory | grep -E -o '[0-9]+.[0-9]?G'
 interval=30
 
+[disk]
+command=echo -n "  "; df -h -P -l "/" | awk '/\/.*/ { print $3; exit 0 }'
+interval=30
+
 [disk-home]
-command=echo -n "  "; df -h -P -l "$HOME" | awk '/\/.*/ { print $3; exit 0 }'
+command=echo -n "  "; df -h -P -l "$HOME" | awk '/\/.*/ { print $3; exit 0 }'
 interval=30
 
 [battery]

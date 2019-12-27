@@ -6,7 +6,7 @@
 # i3 config file (v4)
 
 # font for window titles and bar
-font pango:Source Sans Pro, Font Awesome 5 Free 10
+font pango:Source Sans Pro, Font Awesome 5 Free 12
 
 # use win key
 set $mod Mod4
@@ -32,6 +32,7 @@ set $ws10   "10:   Settings "
 # map workspaces to monitors
 workspace $ws1 output eDP-1
 workspace $ws2 output HDMI-1
+workspace $ws3 output eDP-1
 
 # use $mod+Mouse to drag floating windows to their wanted position
 floating_modifier $mod
@@ -240,20 +241,22 @@ for_window [class="Software-properties-gtk"]        floating enable
 # assign program to workspace
 assign [class="Alacritty"]          → $ws1
 assign [class="terminal"]           → $ws1
-assign [class="Sublime"]            → $ws2
+#assign [class="Sublime"]            → $ws2
+assign [class="jetbrains-pycharm-ce"]  → $ws2
 assign [class="jetbrains-idea-ce"]  → $ws2
 assign [class="DBeaver"]            → $ws2
-assign [class="Chrome"]             → $ws3
+assign [class="Google-chrome"]      → $ws3
 assign [class="Firefox"]            → $ws3
-assign [class="Caja"]               → $ws3
-assign [class="File-roller"]        → $ws4
-assign [class="Pcmanfm"]            → $ws4
-assign [class="libreoffice"]        → $ws5
+assign [class="Caja"]               → $ws4
+#assign [class="File-roller"]        → $ws4
+#assign [class="Pcmanfm"]            → $ws4
+assign [class="libreoffice"]        → $ws4
 assign [class="vlc"]                → $ws6
-assign [class="Gimp"]               → $ws7
+assign [class="Gimp"]               → $ws4
 
 # class                 border  backgr. text    indicator child_border
-client.focused          #2b83a6 #2b83a6 #ffffff #dddddd   #2b83a6
+client.focused          #7770a6 #7770a6 #ffffff #dddddd   #7770a6
+#client.focused          #2b83a6 #2b83a6 #ffffff #dddddd   #2b83a6
 client.focused_inactive #212121 #212121 #86888c #292d2e   #5a5a5a
 client.unfocused        #212121 #212121 #86888c #292d2e   #5a5a5a
 client.urgent           #d64e4e #d64e4e #ffffff #d64e4e   #d64e4e
@@ -276,7 +279,7 @@ bar {
         statusline  #dddddd
         separator   #666666
         # class             border  backgr. text
-        focused_workspace   #2b83a6 #2b83a6 #ffffff
+        focused_workspace   #7770a6 #7770a6 #ffffff
         active_workspace    #212121 #212121 #ffffff
         inactive_workspace  #212121 #212121 #86888c
         urgent_workspace    #d64e4e #d64e4e #ffffff
@@ -295,6 +298,9 @@ mode $keyboard_layout {
 bindsym Shift+d exec --no-startup-id setxkbmap de, mode "default"
 bindsym Shift+g exec --no-startup-id setxkbmap gb, mode "default"
 
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
 # back to normal: Enter or Escape
 bindsym Return mode "default"
 bindsym Escape mode "default"
@@ -303,7 +309,7 @@ bindsym $mod+shift+Z mode $keyboard_layout
 
 # remap keys
 exec_always --no-startup-id "sleep 1; setxkbmap -option caps:ctrl_modifier"
-exec_always --no-startup-id xcape -e "#66=Escape" -t 100
+#exec_always --no-startup-id xcape -e "#66=Escape" -t 100
 #exec_always --no-startup-id xcape -e "Control_L=Escape" -t 100
 
 # startup applications
@@ -314,3 +320,10 @@ exec --no-startup-id nm-applet
 #exec --no-startup-id xrandr | grep 'HDMI-1 connected' && xrandr --output eDP-1 --auto --output HDMI-1 --auto --above eDP-1
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/compton/compton.conf"
 #exec --no-startup-id xautolock -time 10 -locker "i3lock-fancy -f Source-Sans-Pro"
+exec_always --no-startup-id touchpad-indicator
+
+#exec alacritty
+exec firefox
+#exec dbeaver
+exec pycharm
+exec google-chrome
